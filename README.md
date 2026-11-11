@@ -3,6 +3,30 @@
 > DeepSeek Harness 单词插件：输入框旁一个数词胶囊，点开是一张居中的**碎片化复习卡片** —
 > 正面只露单词，翻面给释义和例句，然后按 `1 / 2 / 3` 自评，调度层据此安排下一次到期时间。
 
+## 安装
+
+一键安装（从 GitHub Release 拉 tarball，pnpm 会缓存这个包）：
+
+```bash
+dsh plugin add https://github.com/chouxi-yao/dsh-vocab-plugin/releases/download/v1.0.1/dsh-vocab-plugin-1.0.1.tgz
+```
+
+装完**完全退出桌面端再打开**（宿主启动时把客户端 bundle 快照进内存，刷新页面不换包）。
+
+更新版本时先卸载再装，同一个地址不会自动重解析：
+
+```bash
+dsh plugin remove dsh-vocab-plugin
+dsh plugin add https://github.com/chouxi-yao/dsh-vocab-plugin/releases/download/v1.0.1/dsh-vocab-plugin-1.0.1.tgz
+```
+
+从源码安装（不需要构建，`dist/` 与 `data/` 已随仓库提交）：
+
+```bash
+git clone https://github.com/chouxi-yao/dsh-vocab-plugin.git
+dsh plugin add ./dsh-vocab-plugin
+```
+
 ## 界面
 
 | 位置 | 形态 |
@@ -204,3 +228,11 @@ pnpm run build:deck    # 重新抓音标/例句（会撞词典 API 限流）
 - 已入队的卡不会因为改系统时间而重算（只有 `/next` 新追加时才重新判到期）；
 - 只有 47 个词有例句，其余词背面只有释义；
 - 音标已按要求从界面移除（数据里仍保留，需要时可再露出来）。
+
+## License
+
+[MIT](./LICENSE) © 2026 [chouxi-yao](https://github.com/chouxi-yao)
+
+词表派生自 `原始资料/3-CET4-顺序.json` 与 `4-CET6-顺序.json`（该目录只读、未随仓库提交）；
+`data/` 下只保留插件运行时需要的词形与释义，不含原书全部字段。例句与音标来自
+[dictionaryapi.dev](https://dictionaryapi.dev/) 的公开数据，仅为学习用途。
